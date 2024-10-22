@@ -1,0 +1,18 @@
+networks:
+  tme-bot-demo-network:
+    driver: bridge
+
+services:
+  app: 
+    container_name: tme-bot-demo
+    build:
+      context: HelloBotNET.AppService
+      dockerfile: Dockerfile
+    ports:
+      - "80:8080"
+    environment:
+      - DOTNET_ENVIRONMENT=Production
+    networks:
+      - tme-bot-demo-network
+    volumes:
+      - ./docker/logs:/app/logs
