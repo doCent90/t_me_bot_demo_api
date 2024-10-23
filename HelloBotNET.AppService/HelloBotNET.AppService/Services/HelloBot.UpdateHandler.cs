@@ -12,7 +12,7 @@ namespace HelloBotNET.AppService.Services;
 /// </summary>
 public partial class HelloBot : SimpleTelegramBotBase
 {
-    public override void OnUpdate(Update update)
+    public override async void OnUpdate(Update update)
     {
 #if DEBUG
         this.logger.LogInformation(
@@ -23,5 +23,8 @@ public partial class HelloBot : SimpleTelegramBotBase
 #endif
 
         base.OnUpdate(update);
+#pragma warning disable CS8604 // Possible null reference argument.
+        await this.HandleButton(query: update.CallbackQuery);
+#pragma warning restore CS8604 // Possible null reference argument.
     }
 }

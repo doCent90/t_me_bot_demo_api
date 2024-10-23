@@ -1,7 +1,4 @@
-﻿// Copyright (c) 2024 Quetzal Rivera.
-// Licensed under the MIT License, See LICENCE in the project root for license information.
-
-using Serilog;
+﻿using Serilog;
 using Telegram.BotAPI;
 using Telegram.BotAPI.AvailableMethods;
 using Telegram.BotAPI.AvailableTypes;
@@ -15,7 +12,7 @@ namespace HelloBotNET.AppService.Services;
 /// </summary>
 public partial class HelloBot : SimpleTelegramBotBase
 {
-    protected override void OnCommand(Message message, string commandName, string commandParameters)
+    protected override async void OnCommand(Message message, string commandName, string commandParameters)
     {
         var args = commandParameters.Split(' ');
 #if DEBUG
@@ -30,10 +27,9 @@ public partial class HelloBot : SimpleTelegramBotBase
                 this.Client.SendMessage(message.Chat.Id, hello);
                 break;
             case "show":
-
-                this.Client.SendMessage(message.Chat.Id, "Ага, щас...");
+                this.Client.SendMessage(message.Chat.Id, "Ага, cек");
+                await SendMainMenu(message.Chat.Id);
                 break;
-
             default:
                 if (message.Chat.Type == ChatTypes.Private)
                 {
